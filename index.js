@@ -23,7 +23,7 @@ const renderPlayers = () => {
     const newLI = document.createElement(`li`);
     newLI.innerText = player.name;
     newLI.addEventListener(`click`, (event) => {
-      const clickedPlayer = state.players.find((artist) => {
+      const clickedPlayer = state.players.find((player) => {
         return player.name === event.target.innerText;
       });
       main.innerHTML = `
@@ -31,9 +31,14 @@ const renderPlayers = () => {
 
       <img src="${clickedPlayer.imageUrl}"/>
 
-      <button>Back</button>
+      <button id="backButton">Back</button>
 
       `;
+      //create back button below
+      const backButton = document.getElementById(`backButton`);
+      backButton.addEventListener(`click`, () => {
+        window.location.reload();
+      });
     });
     ol.append(newLI);
   });
@@ -47,4 +52,5 @@ const renderPlayers = () => {
 // put player's name in the LI
 //attach player LI's to the ol
 //attach the ol to the main
+//create back button
 getPuppies();
