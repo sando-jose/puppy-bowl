@@ -10,10 +10,41 @@ const getPuppies = async () => {
     const responseJson = await response.json();
     const playersFromAPI = responseJson.data.players;
     state.players = playersFromAPI;
-    console.log(playersFromAPI);
+    renderPlayers();
   } catch (err) {
     console.error(err);
   }
 };
 
+const renderPlayers = () => {
+  const main = document.querySelector(`main`);
+  const ol = document.createElement(`ol`);
+  state.players.forEach((player) => {
+    const newLI = document.createElement(`li`);
+    newLI.innerText = player.name;
+    newLI.addEventListener(`click`, (event) => {
+      const clickedPlayer = state.players.find((artist) => {
+        return player.name === event.target.innerText;
+      });
+      main.innerHTML = `
+      <h1>${clickedPlayer.cohortId}</h1>
+
+      <img src="${clickedPlayer.imageUrl}"/>
+
+      <button>Back</button>
+
+      `;
+    });
+    ol.append(newLI);
+  });
+  main.append(ol);
+};
+
+//grab the main
+//create an ordered list
+//forEach loop through the players
+// create a list item
+// put player's name in the LI
+//attach player LI's to the ol
+//attach the ol to the main
 getPuppies();
